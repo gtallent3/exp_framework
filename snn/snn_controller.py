@@ -388,6 +388,10 @@ def compute_genome_size(robot_path, snn_input_method, hidden_sizes):
         inp_size = 2  # Inputs are distances to two corners
     elif snn_input_method == "all_dist":
         inp_size = num_snn - 1  # Inputs are distances to all other actuators
+    elif snn_input_method == "ground_dist":
+        inp_size = 1  # Inputs are distances from actuators straight to the ground
+    elif snn_input_method == "ground_and_corner_dist":
+        inp_size = 3 # Inputs are distances from actuators straight to the ground and to two corners
 
     # Compute parameters for each SNN
     params_per_snn = 0

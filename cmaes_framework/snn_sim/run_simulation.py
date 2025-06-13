@@ -29,7 +29,7 @@ ACTUATOR_MAX_LEN = 1.6
 FPS = 50
 MODE = "v"  # "headless", "screen", or "video"
 
-SNN_INPUT_METHOD_DEFAULT = "corners"
+SNN_INPUT_METHOD_DEFAULT = "ground_and_corner_dist"
 DEFAULT_SCALE_SNN_INPUTS = True
 
 FITNESS_OFFSET = 100
@@ -146,6 +146,11 @@ def run(iters,
         snn_input_size = 2
     elif snn_input_method == "all_dist":
         snn_input_size = NUM_ACTUATORS - 1
+    elif snn_input_method == "ground_dist":
+        snn_input_size = 1
+    elif snn_input_method == "ground_and_corner_dist":
+        snn_input_size = 3
+
 
     snn_controller = snn_control.SNNController(snn_input_size,
                                                hidden_sizes,
@@ -177,6 +182,10 @@ def run(iters,
             inputs = np.array(morphology.get_corner_distances(raw_pm_pos))
         elif snn_input_method == "all_dist":
             inputs = np.array(morphology.get_actuator_distances(raw_pm_pos))
+        elif snn_input_method == "ground_dist":
+            inputs = np.array(morphology.get_distance_to_ground(raw_pm_pos))
+        elif snn_input_method == "ground_and_corner_dist":
+            inputs = np.array(morphology.get_corner_and_ground_distance(raw_pm_pos))
 
         if i == 0:
             init = inputs
