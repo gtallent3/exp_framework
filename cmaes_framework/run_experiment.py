@@ -71,7 +71,7 @@ def main():
     parser.add_argument(
         '--snn_input',
         type=str,
-        default="all_dist",
+        default="ground_dist",
         help='What SNN inputs are used. Options: ["corners", "all_dist"]')
 
     # Output params
