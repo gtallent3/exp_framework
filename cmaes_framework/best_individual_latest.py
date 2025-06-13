@@ -94,10 +94,10 @@ def visualize_best(mode, logs):
                 # Make video directory if we're making a video.
                 if mode in ["v", "b"]:
                     os.makedirs(vid_path, exist_ok=True)
-                    run(ITERS, genome, mode, HIDDEN_SIZES, vid_name, vid_path, logs, log_filename)
+                    run(ITERS, genome, mode, HIDDEN_SIZES, vid_name, vid_path, logs, log_filename, snn_input_method="ground_and_corner_dist")
                     quit()
                 elif mode in ["s", "h"]:
-                    run(ITERS, genome, mode, HIDDEN_SIZES, None, None, logs, log_filename)
+                    run(ITERS, genome, mode, HIDDEN_SIZES, vid_name, vid_path, logs, log_filename, snn_input_method="ground_and_corner_dist")
                     if logs:
                         quit()
             except Exception as e:
@@ -107,8 +107,6 @@ def visualize_best(mode, logs):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='RL')
-    parser.add_argument(
-        '--mode', help='mode for output. h-headless , s-screen, v-video, b-both', default="s")
     parser.add_argument(
         '--mode', #headless, screen, video, both h, s, v, b
         help='mode for output. h-headless , s-screen, v-video, b-both',
