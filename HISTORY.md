@@ -176,3 +176,9 @@ April 28th | Takumi
 April 29th | Thomas Breimer
 - Added infrastructure for alternative SNN input options
 - Added distance to all other actuators SNN input option
+
+### Updating Repository With Experiment Changes -- Exploring Environment-Based Inputs
+June 13th | Guy Tallent
+- Added methods to morphology - ground distance and corner + ground distance
+- Added snn_input_methods for both of the methods above ^
+- Changing the default snn input method for experiments to the ground distance
