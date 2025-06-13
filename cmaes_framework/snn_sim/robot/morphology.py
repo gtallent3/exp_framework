@@ -206,3 +206,56 @@ class Morphology:
             distances.append(this_actuator_distances)
 
         return distances
+
+    def get_distance_to_ground(self, pm_pos: list) -> list:
+        """
+        Given the list of robot point mass coordinates generated from sim.object_pos_at_time(),
+        returns an list of lists where each top level list corresponds to a an actuator voxel,
+        the the sublist contains the distance to the ground.
+
+        Parameters:
+            pm_pos (list): A list with the first element being a np.ndarray containing all
+                           point mass x positions, and second element containig all point mass
+                           y positions.
+            
+        Returns:
+            list: A list of list of the distances from active voxels to the ground.
+
+        """
+
+        actuator_distances_to_ground = []
+
+        for actuator in self.actuators:
+            _, y = actuator.get_center_of_mass(pm_pos)  # the distance to the ground is the y-coord
+            actuator_distances_to_ground.append((y,))   # making it a tuple so it can easily work with the corner and ground distance
+            
+        # print (actuator_distances_to_ground)
+        return actuator_distances_to_ground
+
+
+    def get_corner_and_ground_distance(self, pm_pos: list) -> list:   
+        """
+        Given the list of robot point mass coordinates generated from sim.object_pos_at_time(),
+        returns an list of lists where each top level list corresponds to a an actuator voxel,
+        the the sublist contains the distance the ground as well as to top left and bottom right corners.
+
+        Parameters:
+            pm_pos (list): A list with the first element being a np.ndarray containing all
+                           point mass x positions, and second element containig all point mass
+                           y positions.
+            
+        Returns:
+            list: A list of list of the distances from active voxels to the top left, bottom right and the ground.
+
+        """
+
+        all_corner_and_ground_disances = []
+
+        corner_distances = self.get_corner_distances(pm_pos)        # get distances to top left and bottom right corners
+        ground_distances = self.get_distance_to_ground(pm_pos)      # get distance to the ground
+
+        for corner, ground in zip(corner_distances, ground_distances):
+            corner_and_ground_disances = corner + ground            # combine the corner and ground distances
+            all_corner_and_ground_disances.append(corner_and_ground_disances)
+
+        return all_corner_and_ground_disances
