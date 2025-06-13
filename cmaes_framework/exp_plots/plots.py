@@ -366,8 +366,3 @@ def plot_average_best_fitness_across_experiments(experiment_paths, xlim=None):
         plt.xlim(0, xlim)
     plt.tight_layout()
     plt.show()
-
-#plot_average_best_fitness_across_experiments(
-#    ['pos_neg_spikes', 'side_quest', 'two_state_multiplier', 'two_state_reversal'],
-#    xlim=150
-#)
