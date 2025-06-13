@@ -237,5 +237,5 @@ if __name__ == "__main__":
         args.gens,
         args.sigma,
         args.hidden_sizes,
-        snn_input_method="all_dist",
+        snn_input_method="ground_dist",
         scale_snn_inputs=False)
